@@ -7,7 +7,7 @@ namespace PharmacyFinder.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]  // Like Express middleware that checks JWT
+    [Authorize] 
     public class PharmacyController : ControllerBase
     {
         private readonly IPharmacyService _pharmacyService;
@@ -19,12 +19,13 @@ namespace PharmacyFinder.API.Controllers
 
         // POST /api/pharmacy/register
         [HttpPost("register")]
-        [Authorize(Roles = "PharmacyOwner")]  // Only PharmacyOwner can access
+        [Authorize(Roles = "PharmacyOwner")] 
         public async Task<IActionResult> RegisterPharmacy(PharmacyRegisterDto pharmacyDto)
         {
             try
             {
-                var ownerId = User.FindFirst("sub")?.Value;  // Get user ID from JWT
+                // **FIX CS8604:** Use ! to assert non-null.
+                var ownerId = User.FindFirst("sub")!.Value; 
                 var result = await _pharmacyService.RegisterPharmacyAsync(pharmacyDto, ownerId);
                 return Ok(result);
             }
@@ -36,7 +37,7 @@ namespace PharmacyFinder.API.Controllers
 
         // GET /api/pharmacy/nearby?latitude=40.7128&longitude=-74.0060&radiusKm=10
         [HttpGet("nearby")]
-        [AllowAnonymous]  // Public endpoint - no authentication required
+        [AllowAnonymous] 
         public async Task<IActionResult> GetNearbyPharmacies(
             [FromQuery] decimal latitude, 
             [FromQuery] decimal longitude, 
@@ -55,7 +56,7 @@ namespace PharmacyFinder.API.Controllers
 
         // GET /api/pharmacy/pending-approvals
         [HttpGet("pending-approvals")]
-        [Authorize(Roles = "Admin")]  // Only Admin can access
+        [Authorize(Roles = "Admin")] 
         public async Task<IActionResult> GetPendingApprovals()
         {
             var pharmacies = await _pharmacyService.GetPendingApprovalsAsync();
@@ -69,7 +70,8 @@ namespace PharmacyFinder.API.Controllers
         {
             try
             {
-                var adminId = User.FindFirst("sub")?.Value;
+                // **FIX CS8604:** Use ! to assert non-null.
+                var adminId = User.FindFirst("sub")!.Value;
                 var success = await _pharmacyService.ApprovePharmacyAsync(id, adminId);
                 return success ? Ok(new { message = "Pharmacy approved" }) : BadRequest("Approval failed");
             }
@@ -86,7 +88,8 @@ namespace PharmacyFinder.API.Controllers
         {
             try
             {
-                var ownerId = User.FindFirst("sub")?.Value;
+                // **FIX CS8604:** Use ! to assert non-null.
+                var ownerId = User.FindFirst("sub")!.Value;
                 var pharmacies = await _pharmacyService.GetPharmaciesByOwnerAsync(ownerId);
                 return Ok(pharmacies);
             }

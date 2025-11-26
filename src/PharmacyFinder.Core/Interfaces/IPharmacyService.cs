@@ -5,7 +5,7 @@ namespace PharmacyFinder.Core.Interfaces
     /// <summary>
     /// WHAT: Business logic contract for pharmacy operations
     /// WHY: Separates pharmacy business rules from controllers
-    /// RESPONSIBILITY: Registration, approval, search, stock management
+    /// RESPONSIBILITY: Registration, approval, search, stock management, owner-specific retrieval
     /// </summary>
     public interface IPharmacyService
     {
@@ -14,5 +14,8 @@ namespace PharmacyFinder.Core.Interfaces
         Task<IEnumerable<PharmacyDto>> GetPharmaciesNearbyAsync(decimal latitude, decimal longitude, double radiusKm);
         Task<IEnumerable<PharmacyDto>> GetPendingApprovalsAsync();
         Task<PharmacyDto> GetPharmacyByIdAsync(int id);
+        
+        // **FIX for CS1061:** Added method definition required by PharmacyController.
+        Task<IEnumerable<PharmacyDto>> GetPharmaciesByOwnerAsync(string ownerId);
     }
 }
