@@ -13,3 +13,4 @@ F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\refint\PharmacyFinder.Infrastructure.dll
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\PharmacyFinder.Infrastructure.pdb
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\ref\PharmacyFinder.Infrastructure.dll
+F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\PharmacyFinder.Infrastructure.sourcelink.json

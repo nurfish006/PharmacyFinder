@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Http;
+using PharmacyFinder.Core.Interfaces;
+using Microsoft.AspNetCore.Hosting;   
 
 namespace PharmacyFinder.Infrastructure.Services
 {
