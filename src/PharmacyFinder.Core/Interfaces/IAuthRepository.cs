@@ -1,4 +1,5 @@
 using PharmacyFinder.Core.Models;
+using PharmacyFinder.Core.DTOs;
 
 namespace PharmacyFinder.Core.Interfaces
 {

@@ -10,3 +10,4 @@ F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Core\obj\Debug\net10.0\P
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Core\obj\Debug\net10.0\refint\PharmacyFinder.Core.dll
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Core\obj\Debug\net10.0\PharmacyFinder.Core.pdb
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Core\obj\Debug\net10.0\ref\PharmacyFinder.Core.dll
+F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Core\obj\Debug\net10.0\PharmacyFinder.Core.sourcelink.json
