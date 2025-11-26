@@ -35,7 +35,8 @@ public static class SeedData
                 FirstName = "System",
                 LastName = "Admin",
                 UserType = UserType.Admin,
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                IsActive = true
             };
             
             var result = await userManager.CreateAsync(adminUser, "Admin123!");
@@ -45,11 +46,6 @@ public static class SeedData
             }
         }
 
-        // Ensure medicines are seeded (they should be seeded in DbContext already)
-        if (!await context.Medicines.AnyAsync())
-        {
-            // Medicines are seeded in DbContext configuration
-            await context.SaveChangesAsync();
-        }
+        Console.WriteLine("Database seeded successfully");
     }
 }
