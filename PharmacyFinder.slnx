@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PharmacyFinder.API/PharmacyFinder.API.csproj" />
+    <Project Path="src/PharmacyFinder.Core/PharmacyFinder.Core.csproj" />
+    <Project Path="src/PharmacyFinder.Infrastructure/PharmacyFinder.Infrastructure.csproj" />
+  </Folder>
+</Solution>
