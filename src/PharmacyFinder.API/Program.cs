@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
 using PharmacyFinder.Core.Interfaces;
 using PharmacyFinder.Core.Models;
@@ -19,12 +20,23 @@ builder.Services.AddEndpointsApiExplorer();
 // Configure Swagger with JWT support
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Pharmacy Finder API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { 
+        Title = "Pharmacy Finder API", 
+        Version = "v1",
+        Description = "API for Pharmacy Finder Application",
+        Contact = new OpenApiContact
+        {
+            Name = "Pharmacy Finder Team",
+            Email = "support@pharmacyfinder.com"
+        }
+    });
     
     // Add JWT Authentication to Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+        Description = @"JWT Authorization header using the Bearer scheme. 
+                      Enter your token in the text input below.
+                      Example: 'Bearer {token}'",
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
@@ -40,9 +52,12 @@ builder.Services.AddSwaggerGen(c =>
                 {
                     Type = ReferenceType.SecurityScheme,
                     Id = "Bearer"
-                }
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header
             },
-            new string[] {}
+            new List<string>()
         }
     });
 });
@@ -60,13 +75,13 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = false;
     options.User.RequireUniqueEmail = true;
-    options.SignIn.RequireConfirmedEmail = false; // Set to true in production
+    options.SignIn.RequireConfirmedEmail = false;
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
 // JWT Configuration
-var jwtSettings = builder.Configuration.GetSection("Jwt");
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 builder.Services.Configure<JwtSettings>(jwtSettings);
 
 var jwtSecret = jwtSettings["Secret"];
@@ -91,10 +106,9 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = jwtSettings["Issuer"],
         ValidAudience = jwtSettings["Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)),
-        ClockSkew = TimeSpan.Zero // Remove delay for token expiration
+        ClockSkew = TimeSpan.Zero
     };
     
-    // Optional: Handle authentication events
     options.Events = new JwtBearerEvents
     {
         OnAuthenticationFailed = context =>
@@ -140,7 +154,7 @@ builder.Services.AddScoped<IFileStorageService, FileStorageService>();
 // Unit of Work
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-// HTTP Context Accessor (for FileStorageService)
+// HTTP Context Accessor
 builder.Services.AddHttpContextAccessor();
 
 // CORS Configuration
@@ -168,21 +182,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pharmacy Finder API v1");
-        c.RoutePrefix = "swagger"; // Access at /swagger
+        c.RoutePrefix = "swagger";
+        c.DisplayRequestDuration();
+        c.EnableDeepLinking();
     });
     
-    // Development exception page
     app.UseDeveloperExceptionPage();
 }
 else
 {
-    // Production error handling
     app.UseExceptionHandler("/error");
     app.UseHsts();
 }
 
 // Create uploads directory for prescription images
-var uploadsPath = Path.Combine(app.Environment.WebRootPath ?? "wwwroot", "uploads");
+var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
 if (!Directory.Exists(uploadsPath))
 {
     Directory.CreateDirectory(uploadsPath);
@@ -192,7 +206,7 @@ if (!Directory.Exists(uploadsPath))
 // Middleware pipeline
 app.UseHttpsRedirection();
 
-// Serve static files (for prescription images)
+// Serve static files
 app.UseStaticFiles();
 
 // CORS must come before Authentication and Authorization
@@ -244,6 +258,7 @@ using (var scope = app.Services.CreateScope())
     catch (Exception ex)
     {
         Console.WriteLine($"An error occurred while initializing the database: {ex.Message}");
+        Console.WriteLine($"Stack trace: {ex.StackTrace}");
     }
 }
 

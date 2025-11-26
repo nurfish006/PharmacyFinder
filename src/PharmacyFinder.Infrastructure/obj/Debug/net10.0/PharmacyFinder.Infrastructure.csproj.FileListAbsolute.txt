@@ -1,4 +1,5 @@
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\bin\Debug\net10.0\PharmacyFinder.Infrastructure.deps.json
+F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\bin\Debug\net10.0\PharmacyFinder.Infrastructure.runtimeconfig.json
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\bin\Debug\net10.0\PharmacyFinder.Infrastructure.dll
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\bin\Debug\net10.0\PharmacyFinder.Infrastructure.pdb
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\bin\Debug\net10.0\PharmacyFinder.Core.dll
@@ -8,9 +9,10 @@ F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\PharmacyFinder.Infrastructure.AssemblyInfoInputs.cache
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\PharmacyFinder.Infrastructure.AssemblyInfo.cs
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\PharmacyFinder.Infrastructure.csproj.CoreCompileInputs.cache
+F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\PharmacyFinder.Infrastructure.sourcelink.json
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\Pharmacy.8E037DDB.Up2Date
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\PharmacyFinder.Infrastructure.dll
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\refint\PharmacyFinder.Infrastructure.dll
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\PharmacyFinder.Infrastructure.pdb
+F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\PharmacyFinder.Infrastructure.genruntimeconfig.cache
 F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\ref\PharmacyFinder.Infrastructure.dll
-F:\Projects\Hackatone\PharmacyFinder\src\PharmacyFinder.Infrastructure\obj\Debug\net10.0\PharmacyFinder.Infrastructure.sourcelink.json

@@ -1,7 +1,8 @@
-using Microsoft.EntityFrameworkCore;
 using PharmacyFinder.Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using PharmacyFinder.Core.Models;
 using PharmacyFinder.Infrastructure.Data;
+using System.Linq; // Ensure this is present for ToList()
 
 namespace PharmacyFinder.Infrastructure.Repositories
 {
@@ -11,13 +12,25 @@ namespace PharmacyFinder.Infrastructure.Repositories
 
         public async Task<IEnumerable<Pharmacy>> GetPharmaciesNearLocationAsync(decimal latitude, decimal longitude, double radiusKm)
         {
-            // Simple distance calculation using Haversine formula
-            return await _context.Pharmacies
+            // Fix: The ToListAsync() call was on an IOrderedEnumerable (LINQ to Objects)
+            // after the AsEnumerable() call, which caused the CS1061 error.
+            // We must now force the execution and return the Task.FromResult of the synchronous result.
+            
+            // 1. Fetch data from DB that meets basic criteria (IsApproved) and pull to memory (ToList()).
+            var nearbyPharmacies = await _context.Pharmacies
                 .Where(p => p.IsApproved)
-                .AsEnumerable()
+                // Note: If the database had spatial support, we would keep this IQueryable
+                // and translate CalculateDistance into SQL. Since it doesn't, we pull data:
+                .ToListAsync(); // Execute query on the DB
+
+            // 2. Perform distance calculation and ordering in memory (LINQ to Objects).
+            var result = nearbyPharmacies
                 .Where(p => CalculateDistance(latitude, longitude, p.Latitude, p.Longitude) <= radiusKm)
                 .OrderBy(p => CalculateDistance(latitude, longitude, p.Latitude, p.Longitude))
-                .ToListAsync();
+                .ToList(); // Synchronous ToList() since we are in memory
+
+            // We can now return the list.
+            return result;
         }
 
         public async Task<IEnumerable<Pharmacy>> GetPendingApprovalsAsync()
