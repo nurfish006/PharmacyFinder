@@ -1,1 +1,1 @@
-https://stackblitz.com/storage/blobs/eyJfcmFpbHMiOnsiZGF0YSI6Njk0MTQyNjgsInB1ciI6ImJsb2JfaWQifX0=--6f6dd4bccadb0449b5f165ccbaa924fe071da6ec//README.md
+https://stackblitz.com/storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6Njk0MTQyNjgsInB1ciI6ImJsb2JfaWQifX0=--6f6dd4bccadb0449b5f165ccbaa924fe071da6ec/-README.md
