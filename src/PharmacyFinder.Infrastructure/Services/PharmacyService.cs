@@ -74,8 +74,14 @@ namespace PharmacyFinder.Infrastructure.Services
         {
             var pharmacy = await _pharmacyRepository.GetPharmacyWithDetailsAsync(id);
             if (pharmacy == null) throw new ArgumentException("Pharmacy not found");
-            
+
             return MapToDto(pharmacy);
+        }
+
+        public async Task<IEnumerable<PharmacyDto>> GetPharmaciesByOwnerAsync(string ownerId)
+        {
+            var pharmacies = await _pharmacyRepository.GetPharmaciesByOwnerAsync(ownerId);
+            return pharmacies.Select(MapToDto);
         }
 
         private PharmacyDto MapToDto(Pharmacy pharmacy) => new()
