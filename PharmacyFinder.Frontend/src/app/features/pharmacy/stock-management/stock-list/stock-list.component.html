@@ -1,0 +1,101 @@
+<div class="stock-container">
+  <div class="stock-header">
+    <div class="header-left">
+      <h2>Stock Management</h2>
+      <div class="pharmacy-selector">
+        <label for="pharmacy-select" class="pharmacy-label">Filter by Pharmacy:</label>
+        <select 
+          id="pharmacy-select"
+          [value]="selectedPharmacyId === 'all' ? 'all' : (selectedPharmacyId || '')" 
+          (change)="onPharmacyChange($event)" 
+          class="form-select">
+          <option value="all">All Pharmacies</option>
+          <option *ngFor="let pharmacy of pharmacies" [value]="pharmacy.id">
+            {{ pharmacy.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <a [routerLink]="['/pharmacy/stock/add']" [queryParams]="getAddMedicineQueryParams()" class="add-medicine-btn">
+      Add Medicine
+    </a>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Loading stock...</p>
+  </div>
+
+  <div *ngIf="error" class="error-alert" role="alert">
+    <strong>Error!</strong>
+    <span>{{ error }}</span>
+  </div>
+
+  <div *ngIf="!isLoading && !error">
+    <div class="table-wrapper">
+      <table class="stock-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Pharmacy</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Expiry Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let medicine of medicines">
+            <td>
+              <div class="medicine-name-cell">
+                <span class="medicine-name">{{ medicine.name }}</span>
+                <span class="medicine-manufacturer">{{ medicine.manufacturer }}</span>
+              </div>
+            </td>
+            <td>
+              <span class="category-badge">{{ medicine.category }}</span>
+            </td>
+            <td>
+              <span class="pharmacy-name">{{ getPharmacyName(medicine.pharmacyId) }}</span>
+            </td>
+            <td>
+              <span class="price">{{ medicine.price }}</span>
+            </td>
+            <td>
+              <span class="quantity-badge" [ngClass]="{
+                  'low': medicine.quantity < 10,
+                  'medium': medicine.quantity >= 10 && medicine.quantity < 50,
+                  'good': medicine.quantity >= 50
+                }">
+                {{ medicine.quantity }}
+              </span>
+            </td>
+            <td>
+              <span class="expiry-date">{{ medicine.expiryDate | date }}</span>
+            </td>
+            <td>
+              <div class="actions-cell">
+                <a [routerLink]="['/pharmacy/stock/edit', medicine.id]" class="action-btn edit-btn">
+                  Edit
+                </a>
+                <button (click)="deleteMedicine(medicine.id)" class="action-btn delete-btn">
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="medicines.length === 0">
+            <td colspan="7">
+              <div class="empty-state">
+                <div class="empty-state-icon">📦</div>
+                <p class="empty-state-text">No medicines found</p>
+                <p class="empty-state-hint">Start by adding some stock to your pharmacy</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
